@@ -1,5 +1,6 @@
 package com.example.ejercicio_2_4;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -14,9 +15,11 @@ import android.graphics.Bitmap;
 
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private CaptureBitmapView mSig;
     EditText Descripcion;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mSig = new CaptureBitmapView(this, null);
         mContent.addView(mSig, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
 
-
+        Bitmap signature = mSig.getBitmap();
         salvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { salvar();}
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         SQLiteConexion conexion = new SQLiteConexion(this, Transacciones.NameDatabase, null, 1);
         SQLiteDatabase db = conexion.getWritableDatabase();
 
-        Bitmap signature = mSig.getBitmap();
+       Bitmap signature = mSig.getBitmap();
         ContentValues valores = new ContentValues();
         valores.put(Transacciones.Descripcion, Descripcion.getText().toString());
         valores.put(Transacciones.ImgFirma, signature.toString());
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Favor no dejar campos vacios", Toast.LENGTH_LONG).show();
         } else {
 
-            Long Registro = db.insert(Transacciones.TablaSignature, Transacciones.id, valores);
+            Long Registro = db.insert(Transacciones.TablaSignature, Transacciones.Descripcion, valores);
             Toast.makeText(getApplicationContext(), "Registro INGRESADO : Codigo :" + Registro.toString(), Toast.LENGTH_LONG).show();
 
             db.close();

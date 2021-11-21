@@ -7,17 +7,19 @@
         android:id="@+id/sr_imageDetailsTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@+id/sr_imageIV"
+        android:background="@android:color/holo_orange_dark"
         android:paddingLeft="10dp"
-        android:text="Info Contacto"
-        android:textColor="@android:color/black"
+        android:text="Descripcion de la imagen"
+        android:textColor="@android:color/white"
         android:textSize="20sp" />
 
-    <ImageView
-        android:id="@+id/sr_imageIV"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/mood" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/sr_imageIV"
+            android:layout_below="@id/sr_imageDetailsTV"
+            android:src="@drawable/mood"/>
+
+
 </RelativeLayout>

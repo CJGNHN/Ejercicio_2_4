@@ -24,9 +24,6 @@ public class SQLiteConexion extends SQLiteOpenHelper
         super(context, dbname, factory, version);
     }
 
-    private ByteArrayOutputStream objectByteArrayOutputStream;
-    private byte[] imageInBytes;
-
     public SQLiteConexion(Context context) {
         super(context, Transacciones.NameDatabase, null, Transacciones.versionDatabase);
         this.context = context;
@@ -45,34 +42,6 @@ public class SQLiteConexion extends SQLiteOpenHelper
         onCreate(db);
     }
 
-    public void storeImage(Signature objectModelClass){
-        try {
-            SQLiteDatabase objectSqLiteDatabase=this.getWritableDatabase();
-            Bitmap imageToStoreBitmap=objectModelClass.getImage();
-
-            objectByteArrayOutputStream=new ByteArrayOutputStream();
-            imageToStoreBitmap.compress(Bitmap.CompressFormat.JPEG,100,objectByteArrayOutputStream);
-
-            imageInBytes=objectByteArrayOutputStream.toByteArray();
-
-            ContentValues objectContentValues=new ContentValues();
-
-            objectContentValues.put("imageName", objectModelClass.getdescripcion());
-            objectContentValues.put("image", imageInBytes);
-
-            long checkIfQueryRuns = objectSqLiteDatabase.insert("Signature", null, objectContentValues);
-
-            if(checkIfQueryRuns!=-1){
-                Toast.makeText(context, "Datos almacenados en la DB", Toast.LENGTH_SHORT).show();
-                objectSqLiteDatabase.close();
-            }else {
-                Toast.makeText(context, "No se almacenaron los datos en la DB", Toast.LENGTH_SHORT).show();
-            }
-
-        }catch (Exception e){
-            Toast.makeText(context,e.getMessage(),Toast.LENGTH_SHORT).show();
-        }
-    }
 
     public ArrayList<Signature> getAllImagesData(){
         try {
@@ -98,5 +67,6 @@ public class SQLiteConexion extends SQLiteOpenHelper
             return null;
         }
     }
+
 
 }
