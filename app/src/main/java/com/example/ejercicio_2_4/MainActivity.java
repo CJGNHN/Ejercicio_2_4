@@ -52,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout mContent = (LinearLayout) findViewById(R.id.signLayout);
         mSig = new CaptureBitmapView(this, null);
         mContent.addView(mSig, LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
-
-        Bitmap signature = mSig.getBitmap();
+        
         salvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { salvar();}
